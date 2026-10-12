@@ -64,6 +64,8 @@ For a manually installed agent, use `@agent-karpathy` instead. The subagent is c
 
 See [the agent definition](agents/karpathy.md) for its workflow and safety boundaries.
 
+**Grounded in his actual published methods:** The subagent's [engineering workflow](skills/andrej-karpathy/references/engineering-workflow.md) connects recommendations to their primary sources rather than relying only on persona imitation. In practice, it follows the [data-first training recipe](https://karpathy.github.io/2019/04/25/recipe/); uses [explicit acceptance criteria, regression tests, and a correct simple implementation before optimization](https://x.com/karpathy/status/2015883857489522876); and borrows [small, measurable experiments from autoresearch](https://x.com/karpathy/status/2030371219518931079). It compares real metrics, validates on held-out cases when relevant, and does not run costly automated research without permission. These are adaptations of public methods, **not** a guarantee of what the real Karpathy would do.
+
 ## Quick start
 
 ### Option 1: Clone and inspect (recommended)
@@ -142,6 +144,7 @@ bash install.sh --uninstall
 |---|---|
 | [`skills/andrej-karpathy/SKILL.md`](skills/andrej-karpathy/SKILL.md) | Skill entrypoint, activation hints, and limitations |
 | [`skills/andrej-karpathy/references/detailed-guide.md`](skills/andrej-karpathy/references/detailed-guide.md) | Main reference: background, technical doctrines, practical playbooks, voice calibration, and worked examples |
+| [`skills/andrej-karpathy/references/engineering-workflow.md`](skills/andrej-karpathy/references/engineering-workflow.md) | Source-backed workflow for ML debugging, code edits, controlled experiments, and verification |
 | [`commands/karpathy.md`](commands/karpathy.md) | `/karpathy` command for Claude Code / OpenCode |
 | [`commands/karpathy.toml`](commands/karpathy.toml) | `/karpathy` command for Gemini CLI |
 | [`agents/karpathy.md`](agents/karpathy.md) | Claude Code subagent configuration |
