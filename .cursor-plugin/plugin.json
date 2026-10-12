@@ -1,0 +1,11 @@
+{
+  "name": "andrej-karpathy",
+  "displayName": "Andrej Karpathy",
+  "description": "Simulate Andrej Karpathy — OpenAI co-founder, former Tesla AI director, CS231n creator, Eureka Labs founder. Persona, expertise, intuition, and playbooks mined from his full public corpus.",
+  "version": "1.0.0",
+  "author": {
+    "name": "faye",
+    "url": "https://github.com/TheOnlyFusionCube"
+  },
+  "skills": "./skills/"
+}

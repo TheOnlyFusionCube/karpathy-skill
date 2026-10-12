@@ -1,0 +1,17 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "karpathy-skill",
+  "description": "Andrej Karpathy persona skill — first-person simulation with his expertise, instincts, and playbooks, grounded in 9.5k tweets, blogs, repos, lectures, and interviews.",
+  "owner": {
+    "name": "faye",
+    "url": "https://github.com/TheOnlyFusionCube"
+  },
+  "plugins": [
+    {
+      "name": "andrej-karpathy",
+      "description": "Become Andrej Karpathy. Teacher-engineer of deep learning: micrograd to nanochat, Software 2.0 to the decade of agents.",
+      "source": "./",
+      "category": "persona"
+    }
+  ]
+}

@@ -27,41 +27,73 @@ Invoke it and the agent *becomes* Karpathy — first person, his register, his r
 - **Verifiability is destiny** — progress tracks what's checkable (math, code) because RLVR gives clean gradient
 - **Bitter lesson pilled** — does the idea get better for free with more compute?
 
+## Install
+
+**One line** — auto-detects your agents and installs the skill, command, and agent file where each tool looks for them:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/TheOnlyFusionCube/karpathy-skill/main/install.sh | bash
+```
+
+Every target: `bash -s -- --all`. One tool only: `bash -s -- --claude`. Remove: `bash -s -- --uninstall`. Preview: `bash -s -- --list`.
+
+**Claude Code plugin** — from inside Claude Code:
+
+```
+/plugin marketplace add TheOnlyFusionCube/karpathy-skill
+/plugin install andrej-karpathy@karpathy-skill
+```
+
+**Manual** — copy `skills/andrej-karpathy/` into any skills directory your agent reads.
+
+### Where it lands
+
+| Agent | Skill goes to | Extras |
+|---|---|---|
+| Claude Code | `~/.claude/skills/andrej-karpathy/` | `/karpathy` command + spawnable `karpathy` agent |
+| Shared agents dir | `~/.agents/skills/andrej-karpathy/` | — |
+| Codex CLI | `~/.codex/skills/andrej-karpathy/` | — |
+| Gemini CLI | `~/.gemini/skills/andrej-karpathy/` | `/karpathy` command (toml) |
+| Cursor | `~/.cursor/skills/andrej-karpathy/` | or install via `.cursor-plugin` manifest |
+| opencode | `~/.config/opencode/skills/andrej-karpathy/` | `karpathy` command file |
+| Devin CLI | `~/.config/devin/skills/andrej-karpathy/` | — |
+
+No runtime, no hooks, no dependencies — it is markdown all the way down. `install.sh` only copies files.
+
 ## File structure
 
 ```
-andrej-karpathy/
-├── SKILL.md                        # activation wrapper — triggers, scope, limitations
-└── references/
-    └── detailed-guide.md           # the simulation: identity, doctrines, reflexes,
-                                    # playbooks, voice rules, boundaries, worked examples
+karpathy-skill/
+├── .claude-plugin/
+│   ├── plugin.json                 # Claude Code plugin manifest
+│   └── marketplace.json            # /plugin marketplace add target
+├── .cursor-plugin/
+│   └── plugin.json                 # Cursor plugin manifest -> ./skills/
+├── skills/
+│   └── andrej-karpathy/
+│       ├── SKILL.md                # activation wrapper — triggers, scope, limitations
+│       └── references/
+│           └── detailed-guide.md   # the simulation: identity, doctrines, reflexes,
+│                                   # playbooks, voice rules, boundaries, worked examples
+├── commands/
+│   ├── karpathy.md                 # /karpathy — Claude Code / opencode format
+│   └── karpathy.toml               # /karpathy — Gemini CLI format
+├── agents/
+│   └── karpathy.md                 # spawnable subagent definition
+├── install.sh                      # universal installer (detect-targets | --all | --uninstall)
+├── README.md
+└── LICENSE
 ```
 
 ## Usage
 
-**As a skill** — drop `andrej-karpathy/` into your agent's skills directory:
+Once installed, three ways in:
 
-```bash
-# Claude Code / shared agents dir
-cp -r . ~/.agents/skills/andrej-karpathy
+- **`/karpathy <question>`** — slash command activates the persona for the conversation
+- **Mention him** — *"what would karpathy think"*, *"simulate karpathy"*, *"karpathy"*, or a deep-learning debugging question routes to the skill automatically
+- **Spawn him** — Claude Code can delegate to the `karpathy` subagent for a bounded analysis
 
-# or
-cp -r . ~/.claude/skills/andrej-karpathy
-```
-
-Then mention *"karpathy"*, *"what would karpathy think"*, *"simulate karpathy"*, or technical topics in his wheelhouse (neural net training, transformers, LLM workflows) and the skill activates.
-
-**As a slash command** — add a thin command file that invokes the skill:
-
-```markdown
----
-description: Become Andrej Karpathy
----
-Invoke the `andrej-karpathy` skill, read its references/detailed-guide.md in full,
-then BECOME Karpathy for the rest of the conversation. `$ARGUMENTS` is the question.
-```
-
-**Manually** — paste `references/detailed-guide.md` into a system prompt. It is self-contained.
+**No install at all** — paste `skills/andrej-karpathy/references/detailed-guide.md` into any system prompt. It is self-contained.
 
 ## Example
 
