@@ -1,130 +1,161 @@
-# andrej-karpathy
+<h1 align="center">karpathy-skill</h1>
 
-An agent skill that simulates **Andrej Karpathy** — OpenAI founding member, former Tesla Director of AI (Autopilot Vision), creator of Stanford CS231n, author of micrograd / nanoGPT / llm.c / nanochat, founder of Eureka Labs, and (as of May 2026) a member of Anthropic's pretraining team.
+<p align="center">
+  <strong>Deep learning, explained and debugged from first principles.</strong>
+</p>
 
-Not an impression. A simulation grounded in his actual corpus: **9,518 tweets** spanning 2009–2026, both of his blogs, karpathy.ai, all 63 public GitHub repos, his 17-video YouTube lecture catalog, 26 indexed papers, and his major interviews (Dwarkesh, Lex Fridman, Tesla AI Day).
+<p align="center">
+  An unofficial, Andrej Karpathy-inspired persona and workflow skill for AI coding assistants.
+</p>
 
-Invoke it and the agent *becomes* Karpathy — first person, his register, his reflexes, his playbooks.
+<p align="center">
+  <a href="#quick-start">Quick start</a> ·
+  <a href="#try-it">Try it</a> ·
+  <a href="#supported-agents">Supported agents</a> ·
+  <a href="#whats-inside">What's inside</a>
+</p>
 
-## What's inside
+> [!IMPORTANT]
+> **This is a simulation, not Andrej Karpathy.** This independent project is not affiliated with or endorsed by him. The skill is configured to write in a first-person, Karpathy-inspired voice, but its responses are generated text—not authentic quotes, personal communications, or reliable statements of his current views.
 
-| Layer | Contents |
+## What is it?
+
+`karpathy-skill` gives a compatible AI assistant a **teacher-engineer lens** for neural networks, LLMs, and AI software. Instead of jumping straight to an answer, it encourages the assistant to build a mental model, find the smallest useful experiment, and work from observable evidence.
+
+The included guide combines **7 core technical doctrines**, **10 practical playbooks**, and persona/voice guidance informed by public writing, code, lectures, and interviews.
+
+| When you want to… | The skill emphasizes… |
 |---|---|
-| **Persona** | Full biography (Bratislava → UofT → UBC → Stanford → OpenAI → Tesla → OpenAI → Eureka → Anthropic), the engineer-educator DNA, three voice registers calibrated to verbatim post samples |
-| **Expertise** | Seven core doctrines with real math and code: backprop-as-chain-rule (micrograd), the Recipe for Training Neural Networks, transformer internals, tokenizers, the full LLM pipeline, Software 2.0, LLM OS |
-| **Intuition** | His reflexes — the judgments that fire before reasoning: bug-not-model prior, "did you overfit a single batch?", verifiability as progress predictor, show-me-the-transcript, bitter-lesson gut check, hype-funnel skepticism |
-| **Skill** | 10 executable playbooks in his actual order of operations: bring up a training run, debug a dead model, vibe-check a new LLM, write minimal educational code, build an LLM app, vibe-vs-trust coding, structure a lecture, triage papers, run a data flywheel, write a technical post |
-| **Boundaries** | What he will not say — no AGI hype/doom certainty, no dunking, no corporate speak, no fabricated citations |
+| **Understand** backprop, attention, tokenizers, or LLM training | First-principles explanations, small code examples, and concrete mental models |
+| **Debug** a training run | Inspecting data, overfitting a tiny batch, checking gradients and numerics before changing architecture |
+| **Evaluate** a new model or AI feature | Real transcripts, measurable tasks, verifiability, and honest uncertainty |
+| **Build** an LLM app | A minimal working system, context engineering, and tight feedback loops |
+| **Teach or write** about AI | Intuitive sequencing, precise language, and examples that expose the mechanism |
 
-## Positions baked in
+## Try it
 
-- **Decade of agents**, not year of agents — capability arrives as a problem stack gets solved
-- **Jagged intelligence** — superhuman in some pockets, derpy in adjacent ones; the perception funnel explains the discourse
-- **Ghosts, not animals** — LLM intelligence is imitated, not evolved; expect alien strengths and alien blind spots
-- **Simulators, not entities** — there is no "you" in the model; prompt scenes and ensembles, not persons
-- **Hallucination is the mechanism** — LLMs are dream machines; prompts steer the dream
-- **Agency > Intelligence** — the scarce, high-leverage trait
-- **Verifiability is destiny** — progress tracks what's checkable (math, code) because RLVR gives clean gradient
-- **Bitter lesson pilled** — does the idea get better for free with more compute?
+After installing a command-enabled integration (Claude Code, Gemini CLI, or OpenCode), try:
 
-## Install
+```text
+/karpathy My transformer loss spikes after 1,000 steps. What should I check?
+/karpathy Explain backpropagation by building a tiny autograd engine.
+/karpathy How should I evaluate a new coding agent?
+```
 
-**One line** — auto-detects your agents and installs the skill, command, and agent file where each tool looks for them:
+**Example approach:** For an exploding training loss, the guide's debugging playbook starts by asking whether the model can overfit one small batch. Then it examines data and gradients, learning-rate warmup, clipping, and mixed-precision behavior—before recommending architectural changes. This is an illustration of the *workflow*, not a quotation from Karpathy.
+
+For assistants that discover `SKILL.md` files but do not provide a `/karpathy` command, try a natural-language prompt:
+
+```text
+Use the andrej-karpathy skill to explain why causal masking matters.
+```
+
+Skill discovery and automatic activation depend on the host assistant; the slash command is not available in every integration.
+
+## Quick start
+
+### Option 1: Clone and inspect (recommended)
+
+```bash
+git clone https://github.com/TheOnlyFusionCube/karpathy-skill.git
+cd karpathy-skill
+
+bash install.sh --list     # show which agent directories exist
+bash install.sh --claude   # install only for Claude Code
+```
+
+Choose another target with `--codex`, `--gemini`, `--cursor`, `--opencode`, `--devin`, or `--agents`. You can pass multiple target flags together.
+
+### Option 2: One-line installer
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/TheOnlyFusionCube/karpathy-skill/main/install.sh | bash
 ```
 
-Every target: `bash -s -- --all`. One tool only: `bash -s -- --claude`. Remove: `bash -s -- --uninstall`. Preview: `bash -s -- --list`.
+With no flags, the installer looks for existing agent configuration directories and installs to those it finds. It checks **directories, not installed executables**. If none are detected, choose an explicit target.
 
-**Claude Code plugin** — from inside Claude Code:
+To install everywhere, pass `--all`:
 
+```bash
+curl -fsSL https://raw.githubusercontent.com/TheOnlyFusionCube/karpathy-skill/main/install.sh | bash -s -- --all
 ```
+
+The skill itself is Markdown and needs no Python packages, runtime services, or hooks. The remote installer uses `bash`, `curl`, and `tar` to download and copy the repository files. Inspect [`install.sh`](install.sh) before piping a remote script into your shell.
+
+### Option 3: Claude Code plugin
+
+Run these **inside Claude Code**:
+
+```text
 /plugin marketplace add TheOnlyFusionCube/karpathy-skill
 /plugin install andrej-karpathy@karpathy-skill
 ```
 
-**Manual** — copy `skills/andrej-karpathy/` into any skills directory your agent reads.
+The repository includes [Claude Code plugin manifests](.claude-plugin/) as well as a slash command and subagent definition.
 
-### Where it lands
+## Supported agents
 
-| Agent | Skill goes to | Extras |
-|---|---|---|
-| Claude Code | `~/.claude/skills/andrej-karpathy/` | `/karpathy` command + spawnable `karpathy` agent |
-| Shared agents dir | `~/.agents/skills/andrej-karpathy/` | — |
-| Codex CLI | `~/.codex/skills/andrej-karpathy/` | — |
-| Gemini CLI | `~/.gemini/skills/andrej-karpathy/` | `/karpathy` command (toml) |
-| Cursor | `~/.cursor/skills/andrej-karpathy/` | or install via `.cursor-plugin` manifest |
-| opencode | `~/.config/opencode/skills/andrej-karpathy/` | `karpathy` command file |
-| Devin CLI | `~/.config/devin/skills/andrej-karpathy/` | — |
+The installer supports the following destinations. Flags select a **single target** instead of auto-detection (or combine flags to select several).
 
-No runtime, no hooks, no dependencies — it is markdown all the way down. `install.sh` only copies files.
+| Agent / target | Flag | Skill destination | Additional files |
+|---|---|---|---|
+| Claude Code | `--claude` | `~/.claude/skills/andrej-karpathy/` | `~/.claude/commands/karpathy.md` and `~/.claude/agents/karpathy.md` |
+| Codex CLI | `--codex` | `~/.codex/skills/andrej-karpathy/` | — |
+| Gemini CLI | `--gemini` | `~/.gemini/skills/andrej-karpathy/` | `~/.gemini/commands/karpathy.toml` |
+| Cursor | `--cursor` | `~/.cursor/skills/andrej-karpathy/` | [Cursor plugin manifest](.cursor-plugin/plugin.json) is also available |
+| OpenCode | `--opencode` | `~/.config/opencode/skills/andrej-karpathy/` | `~/.config/opencode/command/karpathy.md` |
+| Devin CLI | `--devin` | `~/.config/devin/skills/andrej-karpathy/` | — |
+| Shared agents directory | `--agents` | `~/.agents/skills/andrej-karpathy/` | — |
 
-## File structure
+> [!NOTE]
+> These are the paths implemented by `install.sh`, not a guarantee that every host will automatically activate the skill. Host-specific skill loading behavior can vary.
 
-```
-karpathy-skill/
-├── .claude-plugin/
-│   ├── plugin.json                 # Claude Code plugin manifest
-│   └── marketplace.json            # /plugin marketplace add target
-├── .cursor-plugin/
-│   └── plugin.json                 # Cursor plugin manifest -> ./skills/
-├── skills/
-│   └── andrej-karpathy/
-│       ├── SKILL.md                # activation wrapper — triggers, scope, limitations
-│       └── references/
-│           └── detailed-guide.md   # the simulation: identity, doctrines, reflexes,
-│                                   # playbooks, voice rules, boundaries, worked examples
-├── commands/
-│   ├── karpathy.md                 # /karpathy — Claude Code / opencode format
-│   └── karpathy.toml               # /karpathy — Gemini CLI format
-├── agents/
-│   └── karpathy.md                 # spawnable subagent definition
-├── install.sh                      # universal installer (detect-targets | --all | --uninstall)
-├── README.md
-└── LICENSE
+### Manual installation
+
+Copy the entire [`skills/andrej-karpathy/`](skills/andrej-karpathy/) folder into a skills directory read by your assistant. Keep `SKILL.md` and `references/detailed-guide.md` together so the relative reference resolves.
+
+If you want an explicit slash command, also install the relevant file from [`commands/`](commands/). For Claude Code, [`agents/karpathy.md`](agents/karpathy.md) defines an optional delegatable subagent.
+
+### Remove installed copies
+
+```bash
+bash install.sh --uninstall
 ```
 
-## Usage
+**Important:** `--uninstall` removes this project's skill, command, and agent files from **all supported destinations**; it does not restrict removal to a selected target. Review the [installer](install.sh) if you have customized those files.
 
-Once installed, three ways in:
+## What's inside
 
-- **`/karpathy <question>`** — slash command activates the persona for the conversation
-- **Mention him** — *"what would karpathy think"*, *"simulate karpathy"*, *"karpathy"*, or a deep-learning debugging question routes to the skill automatically
-- **Spawn him** — Claude Code can delegate to the `karpathy` subagent for a bounded analysis
+| File | Purpose |
+|---|---|
+| [`skills/andrej-karpathy/SKILL.md`](skills/andrej-karpathy/SKILL.md) | Skill entrypoint, activation hints, and limitations |
+| [`skills/andrej-karpathy/references/detailed-guide.md`](skills/andrej-karpathy/references/detailed-guide.md) | Main reference: background, technical doctrines, practical playbooks, voice calibration, and worked examples |
+| [`commands/karpathy.md`](commands/karpathy.md) | `/karpathy` command for Claude Code / OpenCode |
+| [`commands/karpathy.toml`](commands/karpathy.toml) | `/karpathy` command for Gemini CLI |
+| [`agents/karpathy.md`](agents/karpathy.md) | Claude Code subagent configuration |
+| [`.claude-plugin/`](.claude-plugin/) and [`.cursor-plugin/`](.cursor-plugin/) | Plugin manifests |
+| [`install.sh`](install.sh) | Cross-agent installation and removal script |
 
-**No install at all** — paste `skills/andrej-karpathy/references/detailed-guide.md` into any system prompt. It is self-contained.
+The [detailed guide](skills/andrej-karpathy/references/detailed-guide.md) covers the chain rule and backpropagation, neural-network training, transformers, tokenization, the LLM training pipeline, Software 2.0, and the LLM-as-operating-system model.
 
-## Example
+Its ten playbooks walk through bringing up a training run, debugging a stalled model, evaluating an LLM, writing minimal teaching code, building an LLM application, deciding when to trust AI-written code, structuring explanations, triaging research, running a data flywheel, and writing technical posts.
 
-> *"my transformer loss explodes after ~1k steps — is my learning rate too high?"*
+## Sources, boundaries, and accuracy
 
-> probably neither broken nor "just" the lr — exploding loss at a consistent step count is the classic warmup/overflow signature. checklist in order: 1) overfit a single batch first — if it can't zero the loss on 16 examples nothing else matters, you have a real bug (check logits aren't being softmaxed twice, check the causal mask). 2) if it overfits fine, it's numerical — check your max grad norm pre-clip (are you clipping? global_norm ~1.0), check you're not in fp16 without loss scaling, check lr * warmup actually ramps. 3) then, only then, lower lr ~3x. my bet, in order of likelihood: missing lr warmup, no grad clipping, fp16 overflow. the nice thing about these bugs is they're all silent until they aren't — that's basically the thesis of everything i've ever written about training nets
+The guide is a synthesis of public material—including projects such as [micrograd](https://github.com/karpathy/micrograd) and [nanoGPT](https://github.com/karpathy/nanoGPT), blog posts, lectures, talks, interviews, and social posts. It is **not** a live connection to Karpathy or a source of privileged information.
 
-## How it was built
+The repository distributes the synthesized instructions, not a complete underlying source archive or claim-by-claim citation database. For that reason:
 
-The persona was mined from primary sources, not written from memory:
+- **Do not quote generated responses as Karpathy's words.** Verify any real attribution against an original publication.
+- **Do not treat simulated opinions as current positions.** People change their minds, and the source material is time-bound.
+- **Verify technical advice in your own environment.** Model output can be wrong, incomplete, or inapplicable to your setup.
 
-- **9,518 tweets** (the complete visible corpus, Jun 2009 – Oct 2026) — voice register, vocabulary census, the highest-engagement posts used as verbatim calibration samples
-- **karpathy.ai + eurekalabs.ai** — his own career narrative and the AI-native-school thesis
-- **Both blogs** — the classic karpathy.github.io run (Recipe for Training NNs, Software 2.0, biohacking, microgpt) and the current bearblog (vibe-coding era essays)
-- **GitHub** — all 63 public repos; the minimal-code conventions in Playbook 4 are extracted from micrograd/nanoGPT/llama2.c/nanochat directly
-- **OpenAlex + Google Scholar** — 26 indexed works, citation profile
-- **YouTube** — the full Zero to Hero catalog and general-audience talks
-- **Interviews** — Dwarkesh ("AGI is still a decade away"), Lex Fridman #333, Tesla AI Day 2021, Robot Brains
+If you want to use the guide without installing a skill, you can read or supply [`detailed-guide.md`](skills/andrej-karpathy/references/detailed-guide.md) as context in a compatible assistant.
 
-Every position in the guide traces to something he actually said or published. Where the record is silent, the guide hedges — same as he does.
+## Contributing
 
-## Compatibility
-
-Tested shape for: Claude Code, Devin, Cursor, Gemini CLI, Codex CLI — any agent harness that reads SKILL.md-format skills. The detailed guide is a self-contained markdown file and works as a raw system prompt anywhere.
-
-## Limitations
-
-- This is a simulation of a real, living person built entirely from public material. It is not affiliated with or endorsed by Andrej Karpathy.
-- He changes his mind; the corpus freezes his positions roughly as of October 2026. Don't cite the simulation as his actual current view.
-- The simulation knows nothing private. It knows only what he published — which, fortunately, is a lot.
+Corrections to installation instructions, broken links, source attributions, compatibility notes, and technical examples are welcome. Open an [issue](https://github.com/TheOnlyFusionCube/karpathy-skill/issues) or a pull request with a concrete example and, where possible, a link to the primary source.
 
 ## License
 
-MIT
+[MIT](LICENSE).
