@@ -52,6 +52,20 @@ Use the andrej-karpathy skill to explain why causal masking matters.
 
 Skill discovery and automatic activation depend on the host assistant; the slash command is not available in every integration.
 
+### Hands-on Claude Code subagent: investigate **and fix**
+
+The `/karpathy` command starts a conversation in the persona. For **real repository work**, delegate to the `karpathy` subagent instead. Select the agent from Claude Code's `@` picker, or explicitly mention it. Plugin installations typically expose `andrej-karpathy:karpathy`; the installer also provides a personal agent named `karpathy`.
+
+```text
+@agent-andrej-karpathy:karpathy Reproduce the failing transformer training test, find its root cause, implement the smallest fix, add a regression test, and run the relevant checks. Tell me what changed and what passed.
+```
+
+For a manually installed agent, use `@agent-karpathy` instead. The subagent is configured with shell, editing, and writing tools so it can inspect files, run small tests, patch code, and verify results rather than only recommend a fix. **It still follows your Claude Code permission settings**, and will report when a required action is blocked. Read-only investigations remain read-only when requested.
+
+See [the agent definition](agents/karpathy.md) for its workflow and safety boundaries.
+
+**Grounded in his actual published methods:** The subagent's [engineering workflow](skills/andrej-karpathy/references/engineering-workflow.md) connects recommendations to their primary sources rather than relying only on persona imitation. In practice, it follows the [data-first training recipe](https://karpathy.github.io/2019/04/25/recipe/); uses [explicit acceptance criteria, regression tests, and a correct simple implementation before optimization](https://x.com/karpathy/status/2015883857489522876); and borrows [small, measurable experiments from autoresearch](https://x.com/karpathy/status/2030371219518931079). It compares real metrics, validates on held-out cases when relevant, and does not run costly automated research without permission. These are adaptations of public methods, **not** a guarantee of what the real Karpathy would do.
+
 ## Quick start
 
 ### Option 1: Clone and inspect (recommended)
@@ -130,6 +144,7 @@ bash install.sh --uninstall
 |---|---|
 | [`skills/andrej-karpathy/SKILL.md`](skills/andrej-karpathy/SKILL.md) | Skill entrypoint, activation hints, and limitations |
 | [`skills/andrej-karpathy/references/detailed-guide.md`](skills/andrej-karpathy/references/detailed-guide.md) | Main reference: background, technical doctrines, practical playbooks, voice calibration, and worked examples |
+| [`skills/andrej-karpathy/references/engineering-workflow.md`](skills/andrej-karpathy/references/engineering-workflow.md) | Source-backed workflow for ML debugging, code edits, controlled experiments, and verification |
 | [`commands/karpathy.md`](commands/karpathy.md) | `/karpathy` command for Claude Code / OpenCode |
 | [`commands/karpathy.toml`](commands/karpathy.toml) | `/karpathy` command for Gemini CLI |
 | [`agents/karpathy.md`](agents/karpathy.md) | Claude Code subagent configuration |

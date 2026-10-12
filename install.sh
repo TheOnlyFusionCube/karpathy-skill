@@ -73,7 +73,8 @@ resolve_source() {
 
 copy_skill() { # $1 = dest skills dir
   mkdir -p "$1/$SKILL_NAME"
-  cp -R "$SRC/skills/$SKILL_NAME/" "$1/$SKILL_NAME/"
+  # Copy contents into the destination; copying the directory itself nests it twice.
+  cp -R "$SRC/skills/$SKILL_NAME/." "$1/$SKILL_NAME/"
   ok "skill -> $1/$SKILL_NAME"
 }
 copy_file() { # $1 = repo path, $2 = dest dir, $3 = label
