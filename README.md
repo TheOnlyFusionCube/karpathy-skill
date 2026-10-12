@@ -52,6 +52,18 @@ Use the andrej-karpathy skill to explain why causal masking matters.
 
 Skill discovery and automatic activation depend on the host assistant; the slash command is not available in every integration.
 
+### Hands-on Claude Code subagent: investigate **and fix**
+
+The `/karpathy` command starts a conversation in the persona. For **real repository work**, delegate to the `karpathy` subagent instead. Select the agent from Claude Code's `@` picker, or explicitly mention it. Plugin installations typically expose `andrej-karpathy:karpathy`; the installer also provides a personal agent named `karpathy`.
+
+```text
+@agent-andrej-karpathy:karpathy Reproduce the failing transformer training test, find its root cause, implement the smallest fix, add a regression test, and run the relevant checks. Tell me what changed and what passed.
+```
+
+For a manually installed agent, use `@agent-karpathy` instead. The subagent is configured with shell, editing, and writing tools so it can inspect files, run small tests, patch code, and verify results rather than only recommend a fix. **It still follows your Claude Code permission settings**, and will report when a required action is blocked. Read-only investigations remain read-only when requested.
+
+See [the agent definition](agents/karpathy.md) for its workflow and safety boundaries.
+
 ## Quick start
 
 ### Option 1: Clone and inspect (recommended)
